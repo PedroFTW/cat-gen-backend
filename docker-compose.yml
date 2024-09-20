@@ -1,0 +1,12 @@
+name: 'Nest-Test'
+
+services:
+  nest_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nest_api
+    ports:
+      - 3000:3000
+    volumes:
+      - ./src:/app/src
