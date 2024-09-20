@@ -2,7 +2,7 @@ import { Controller, Get, Post, Param, Body } from '@nestjs/common';
 import { CreateCatDto } from "./create-cat.dto";
 
 @Controller('cats')
-export class CatsControllerController {
+export class CatsController {
     @Post()
     create(@Body() createCatDto: CreateCatDto): string {
         return "This action creates a new cat!"
