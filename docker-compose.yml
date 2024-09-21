@@ -10,3 +10,11 @@ services:
       - 3000:3000
     volumes:
       - ./src:/app/src
+
+  mongo:
+    container_name: mongo
+    image: mongo:4.4.6
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
