@@ -6,10 +6,10 @@ import { CatsService } from './cats.service';
 export class CatsController {
   constructor(private catsService: CatsService) {}
   @Post()
-  create(@Body() createCatDto: CreateCatDto): string {
+  create(@Body() createCatDto: CreateCatDto): any {
     console.log(createCatDto);
     this.catsService.create(createCatDto);
-    return 'This action creates a new cat!';
+    return { success: true };
   }
 
   @Get()
@@ -18,7 +18,7 @@ export class CatsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number): string {
-    return `This action returns the ${id} cat`;
+  findOne(@Param('id') name: string): any {
+    return this.catsService.findByName(name);
   }
 }
