@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, UseGuards } from '@nestjs/common';
 import { CreateCatDto } from './create-cat.dto';
 import { CatsService } from './cats.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('cats')
+@UseGuards(AuthGuard)
 export class CatsController {
   constructor(private catsService: CatsService) {}
   @Post()
