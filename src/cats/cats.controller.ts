@@ -9,7 +9,6 @@ export class CatsController {
   constructor(private catsService: CatsService) {}
   @Post()
   create(@Body() createCatDto: CreateCatDto): any {
-    console.log(createCatDto);
     this.catsService.create(createCatDto);
     return { success: true };
   }
