@@ -2,7 +2,7 @@ import { CatGeneratorService } from './../cat-generator/cat-generator.service';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Cat } from './cat.schema';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { CreateCatDto } from './create-cat.dto';
 
 @Injectable()
@@ -12,17 +12,19 @@ export class CatsService {
     private catGeneratorService: CatGeneratorService,
   ) {}
 
-  async create(createCatDto: CreateCatDto): Promise<Cat> {
+  async create(createCatDto: CreateCatDto, userOID: ObjectId): Promise<Cat> {
+    createCatDto.owner = userOID;
+
     const createdCat = new this.catModel(createCatDto);
     this.catGeneratorService.generateCatPng(createdCat._id.toString());
     return createdCat.save();
   }
 
-  async findAll(): Promise<Cat[]> {
-    return this.catModel.find().exec();
+  async findAll(userOID: ObjectId): Promise<Cat[]> {
+    return this.catModel.find({ owner: userOID }).exec();
   }
 
-  async findByName(name: string): Promise<Cat[]> {
-    return this.catModel.find({ name: name }).exec();
+  async findByName(name: string, userOID: ObjectId): Promise<Cat[]> {
+    return this.catModel.find({ name: name, owner: userOID }).exec();
   }
 }

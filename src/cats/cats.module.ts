@@ -4,6 +4,7 @@ import { CatsService } from './cats.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Cat, CatSchema } from './cat.schema';
 import { CatGeneratorModule } from 'src/cat-generator/cat-generator.module';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
   controllers: [CatsController],
@@ -11,6 +12,7 @@ import { CatGeneratorModule } from 'src/cat-generator/cat-generator.module';
   imports: [
     MongooseModule.forFeature([{ name: Cat.name, schema: CatSchema }]),
     CatGeneratorModule,
+    UsersModule,
   ],
   exports: [CatsService],
 })

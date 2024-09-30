@@ -27,7 +27,7 @@ export class AuthService {
 
     this.usersService.updateLastLoggedInAt(user);
 
-    const payload = { sub: user.email, userOID: user._id };
+    const payload = { email: user.email, userOID: user._id };
     return {
       access_token: await this.jwtService.signAsync(payload),
     };
