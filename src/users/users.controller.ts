@@ -11,11 +11,15 @@ export class UsersController {
   ) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    if (this.usersService.findOne(createUserDto.email) !== undefined) {
-      throw new ForbiddenException('Already exists');
-    }
-    this.usersService.create(createUserDto);
-    return { success: true };
+  async create(@Body() createUserDto: CreateUserDto): Promise<any> {
+    await this.usersService.findOne(createUserDto.email).then((user) => {
+      console.log(user);
+      if (user !== null) {
+        throw new ForbiddenException('Already exists');
+      }
+      this.usersService.create(createUserDto);
+
+      return { success: true };
+    });
   }
 }

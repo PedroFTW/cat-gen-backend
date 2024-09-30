@@ -17,6 +17,12 @@ export class UsersService {
     return createdUser.save();
   }
 
+  async updateLastLoggedInAt(user: User): Promise<User> {
+    user.lastLoggedInAt = new Date();
+    const updatedUser = new this.userModel(user);
+    return updatedUser.save();
+  }
+
   async findOne(email: string): Promise<User | null> {
     return this.userModel.findOne({ email: email }).exec();
   }
