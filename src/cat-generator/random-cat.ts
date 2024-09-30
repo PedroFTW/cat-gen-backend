@@ -1,4 +1,3 @@
-import { Jimp } from 'jimp';
 import { RandomCatOptions } from './random-cat-options';
 import { baseCatConstants, ColorPool, mappingColors } from './constants';
 import { SpriteSegment } from './sprite-segment';
@@ -15,10 +14,10 @@ export abstract class RandomCat {
 
   static getRandomCat(randomCatOptions: RandomCatOptions): RandomCat {
     if (randomCatOptions.bodyType === baseCatConstants.SINGLECOLOR) {
-      return new SingleColorCat(randomCatOptions);
+      return new SingleColorCat(randomCatOptions).createRandomCat();
     }
     if (randomCatOptions.bodyType === baseCatConstants.TWOCOLOR) {
-      return new TwoColorCat(randomCatOptions);
+      return new TwoColorCat(randomCatOptions).createRandomCat();
     }
 
     throw Error(`No ${randomCatOptions.bodyType} type found`);
@@ -106,45 +105,6 @@ export abstract class RandomCat {
 
     this.segments.push(this.getSocksSegment());
   }
-
-  generatePng(): void {
-    const image = new Jimp({
-      width: 26,
-      height: 15,
-      color: 0x00000000,
-    });
-
-    this.mapSprite()
-      .then((spriteMap: RandomCat) => {
-        spriteMap.segments.map((segment: SpriteSegment) => {
-          segment.pixel_data.map((index) => {
-            image.setPixelColor(segment.output_color, index.x, index.y);
-          });
-        });
-      })
-      .then(() => {
-        image.write('out.png');
-      });
-  }
-
-  async mapSprite(): Promise<RandomCat> {
-    const map = await Jimp.read(
-      process.cwd() + '/public/' + `${this.randomCatOptions.bodyType}.png`,
-    );
-
-    map.scan((x, y) => {
-      this.segments.forEach((segment) => {
-        if (map.getPixelColor(x, y) === segment.map_color) {
-          segment.pixel_data.push({
-            x: x,
-            y: y,
-          });
-        }
-      });
-    });
-
-    return this;
-  }
 }
 
 export class SingleColorCat extends RandomCat {
@@ -157,12 +117,12 @@ export class TwoColorCat extends RandomCat {
   createRandomCat(): RandomCat {
     const upperBody = new SpriteSegment();
     const rarity = RandomCatOptions.getRarityPool();
+
     upperBody.name = 'upper_body';
     upperBody.map_color = mappingColors.GREEN;
     upperBody.output_color = RandomCatOptions.getRandomEntryFromArray(
       ColorPool[this.randomCatOptions.bodyType]['upperBody'][rarity],
     );
-
     this.segments.push(upperBody);
 
     return this;

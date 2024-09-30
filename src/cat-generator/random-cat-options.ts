@@ -14,6 +14,7 @@ export class RandomCatOptions {
   }
 
   static getRandomBodyType(): string {
+    return baseCatConstants.TWOCOLOR;
     return randomizerCatConstants.BODY_TYPES[
       this.getRandomInt(randomizerCatConstants.BODY_TYPES.length)
     ];

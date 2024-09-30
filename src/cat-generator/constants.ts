@@ -1,3 +1,5 @@
+export const STORAGE_PATH = '/public/generated-cats';
+
 export const baseCatConstants = {
   SINGLECOLOR: 'singlecolor',
   TWOCOLOR: 'twocolor',
