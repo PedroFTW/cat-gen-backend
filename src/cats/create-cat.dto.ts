@@ -1,8 +1,7 @@
 import { ObjectId } from 'mongoose';
+import { RandomCat } from 'src/cat-generator/random-cat';
 
 export class CreateCatDto {
-  name: string;
-  age: number;
-  breed: string;
   owner: ObjectId;
+  randomCat: RandomCat;
 }

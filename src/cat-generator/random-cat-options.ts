@@ -1,20 +1,35 @@
-import { baseCatConstants, randomizerCatConstants } from './constants';
+import {
+  baseCatConstants,
+  catNames,
+  randomizerCatConstants,
+} from './constants';
 export class RandomCatOptions {
   public bodyType: string;
   public hasHeterochromia: boolean;
   public hasSocks: boolean;
+  public age: number;
+  public originalName: string;
 
   static generateRandomCatOptions(): RandomCatOptions {
     const options = new RandomCatOptions();
     options.bodyType = RandomCatOptions.getRandomBodyType();
     options.hasHeterochromia = RandomCatOptions.getHeterochromia();
     options.hasSocks = RandomCatOptions.getSocks();
+    options.age = RandomCatOptions.getRandomAge();
+    options.originalName = RandomCatOptions.getRandomName();
 
     return options;
   }
 
+  static getRandomName(): string {
+    return this.getRandomEntryFromArray(catNames);
+  }
+
+  static getRandomAge(): number {
+    return this.getRandomInt(20);
+  }
+
   static getRandomBodyType(): string {
-    return baseCatConstants.TWOCOLOR;
     return randomizerCatConstants.BODY_TYPES[
       this.getRandomInt(randomizerCatConstants.BODY_TYPES.length)
     ];

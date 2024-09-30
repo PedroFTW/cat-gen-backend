@@ -20,6 +20,9 @@ export class User {
 
   @Prop()
   updatedAt: Date;
+
+  @Prop()
+  nextCatAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

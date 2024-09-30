@@ -17,8 +17,17 @@ export class UsersService {
     return createdUser.save();
   }
 
+  //TODO: Update code to use findAndUpdateMethods
   async updateLastLoggedInAt(user: User): Promise<User> {
     user.lastLoggedInAt = new Date();
+    const updatedUser = new this.userModel(user);
+    return updatedUser.save();
+  }
+
+  async updateNextCatAt(user: User): Promise<User> {
+    const nextCatAt = new Date();
+    nextCatAt.setHours(nextCatAt.getHours() + 0);
+    user.nextCatAt = nextCatAt;
     const updatedUser = new this.userModel(user);
     return updatedUser.save();
   }
@@ -33,5 +42,20 @@ export class UsersService {
       throw new NotFoundException();
     }
     return user;
+  }
+
+  async canCreateCat(OID: ObjectId): Promise<boolean> {
+    const now = new Date();
+    const user = await this.findOneById(OID);
+
+    if (
+      user.nextCatAt === undefined ||
+      user.nextCatAt.getTime() <= now.getTime()
+    ) {
+      this.updateNextCatAt(user);
+      return true;
+    }
+
+    return false;
   }
 }

@@ -20,6 +20,33 @@ export const mappingColors = {
   YELLOW: 0xffff00ff,
 };
 
+export const catNames = [
+  'Alecrim',
+  'Amora',
+  'Baunilha',
+  'Bolinho',
+  'Café',
+  'Chips',
+  'Cookie',
+  'Fubá',
+  'Jujuba',
+  'Paçoca',
+  'Lasanha',
+  'Marshmallow',
+  'Mel',
+  'Milk',
+  'Muffin',
+  'Nacho',
+  'Pipoca',
+  'Sal',
+  'Sashimi',
+  'Sushi',
+  'Tequila',
+  'Torrada',
+  'Vodka',
+  'Whisky',
+];
+
 interface ColorPool {
   [key: string]: any;
 }

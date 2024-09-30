@@ -5,13 +5,15 @@ import { RandomCat } from './random-cat';
 
 @Injectable()
 export class CatGeneratorService {
-  generateCatPng(catOId: string): void {
+  generateCatPng(catOId: string): RandomCatOptions {
     try {
       const catOptions = RandomCatOptions.generateRandomCatOptions();
       const randomCat = RandomCat.getRandomCat(catOptions);
       const pngGenerator: PngGenerator = new PngGenerator(randomCat);
 
       pngGenerator.generatePng(catOId);
+
+      return catOptions;
     } catch {
       //TODO: Completely useless error message. Implement real exceptions along the generation process.
       throw new Error('Oops, something went wrong!');
