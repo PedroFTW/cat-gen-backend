@@ -4,6 +4,9 @@ import { AuthService } from './auth.service';
 import { UsersModule } from 'src/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
+import { UserTokenService } from './user-token.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { UserToken, UserTokenSchema } from './user-token.schema';
 
 @Module({
   imports: [
@@ -11,12 +14,12 @@ import { jwtConstants } from './constants';
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: {
-        expiresIn: '60m',
-      },
     }),
+    MongooseModule.forFeature([
+      { name: UserToken.name, schema: UserTokenSchema },
+    ]),
   ],
-  providers: [AuthService],
+  providers: [AuthService, UserTokenService],
   controllers: [AuthController],
 })
 export class AuthModule {}

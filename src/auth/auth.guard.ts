@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate {
         secret: jwtConstants.secret,
       });
 
-      request['user'] = this.usersService.findOne(payload.email);
+      request['user'] = await this.usersService.findOne(payload.email);
     } catch {
       throw new UnauthorizedException();
     }
