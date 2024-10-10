@@ -21,9 +21,10 @@ import { join } from 'path';
 import { Response } from 'express';
 
 @Controller('cats')
-@UseGuards(AuthGuard)
 export class CatsController {
   constructor(private catsService: CatsService) {}
+
+  @UseGuards(AuthGuard)
   @Post()
   async create(
     @AuthneticatedUser() user: User,
@@ -32,6 +33,7 @@ export class CatsController {
     return this.catsService.create(createCatDto, user._id);
   }
 
+  @UseGuards(AuthGuard)
   @Put(':id')
   async update(
     @AuthneticatedUser() user: User,
@@ -41,11 +43,14 @@ export class CatsController {
     return this.catsService.updateCat(id, user._id, updateCatDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   findAll(@AuthneticatedUser() user: User): any {
+    console.log(user);
     return this.catsService.findAll(user._id);
   }
 
+  @UseGuards(AuthGuard)
   @Get(':id')
   findOne(@AuthneticatedUser() user: User, @Param('id') id: string): any {
     return this.catsService.findOneById(id, user._id);

@@ -43,6 +43,7 @@ export class UserTokenService {
   async getUserByToken(refreshToken: string): Promise<User> {
     const token = await this.userTokenModel
       .findOne({ refresh_token: refreshToken })
+      .populate('user')
       .exec();
 
     if (!token) {
