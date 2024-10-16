@@ -1,5 +1,10 @@
+<style>
+	.pixelate {
+		image-rendering: pixelated
+	}
+</style>
 <p align="center">
-  <img src="readmeimgs/random_cat.png" style="image-rendering: pixelated" width="120" alt="CatGen" />
+  <img src="readmeimgs/random_cat.png" class="pixelate" width="120" alt="CatGen" />
 </p>
 <p align="center">A pixelated random cat generator!</p>
 
