@@ -1,10 +1,5 @@
-<style>
-	.pixelate {
-		image-rendering: pixelated
-	}
-</style>
 <p align="center">
-  <img src="readmeimgs/random_cat.png" class="pixelate" width="120" alt="CatGen" />
+  <img src="readmeimgs/random_cat.png" width="120" alt="Logo" />
 </p>
 <p align="center">A pixelated random cat generator!</p>
 
@@ -42,10 +37,7 @@ After a user is created and authenticated, he can make a POST request to the /ca
 Here's a couple of randomly generated cats:
 
 <p align="center">
-  <img src="readmeimgs/cat1.png" style="image-rendering: pixelated" width="120" alt="CatGen" />
-	<img src="readmeimgs/cat2.png" style="image-rendering: pixelated" width="120" alt="CatGen" />
-	<img src="readmeimgs/cat3.png" style="image-rendering: pixelated" width="120" alt="CatGen" />
-	<img src="readmeimgs/cat4.png" style="image-rendering: pixelated" width="120" alt="CatGen" />
+  <img src="readmeimgs/random_cats_example.png" alt="catExamples" />
 </p>
 
 ## How does it work?
